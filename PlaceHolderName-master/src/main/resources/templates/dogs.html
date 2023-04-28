@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Fatemas Jyckar</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="happy.png">
+</head>
+<body>
+
+<div class="header">
+    <div class="company">
+        <img class="logo" src="happy.png" width="100px" height="100px">
+        <h1>Fatemas Jyckar</h1>
+    </div>
+
+    <div class="nav-bar">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/dogs">Dogs</a></li>
+            <li><a href="/donations">Donations</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+</div>
+
+<br>
+
+<div class="dog-container" th:each="dog: ${dogs}">
+    <img class="test" th:src="${dog.imageUrl}">
+    <div class="dog-info">
+        <p th:text="${dog.name}"></p>
+        <p th:text="${dog.age}"></p>
+        <button><a class="doglink" th:href="'/dog/' + ${dog.id}" type="button">More info</a></button>
+    </div>
+</div>
+
+<div>
+        <span th:if="${showPrev}">
+            <a th:href="'/dogs?page=' + ${currentPage-1}" th:text="Previous"></a>
+        </span>
+
+    <span th:each="page : ${pages}">
+            <span th:if="${currentPage == page}" th:text="${page}"></span>
+            <a th:if="${currentPage != page}" th:href="'/dogs?page=' + ${page}" th:text="${page}"></a>
+        </span>
+
+    <span th:if="${showNext}">
+            <a th:href="'/dogs?page=' + ${currentPage+1}" th:text="Next"></a>
+        </span>
+</div>
+
+</body>
+</html>
